@@ -1,12 +1,15 @@
 extends CharacterBody2D
 
 @export var speed = 0
-@export var boatSpeed = 6
-@export var maxSpeed = 150
+@export var boatSpeed = 4
+@export var maxSpeed = 140
 @export var player_in_range_boat := false
 @onready var _animated_sprite = $BoatAnimated
 @onready var _boatguy = $BoatGuy
 
+func _on_ready():
+	var player = get_node("/root/Node2D/Player")
+	add_collision_exception_with(player)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":

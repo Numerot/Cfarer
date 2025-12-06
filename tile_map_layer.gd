@@ -1,6 +1,6 @@
 extends TileMapLayer
 
 func _physics_process(_delta):
-	if (randi() % 100) > 94:
-		self.position.x += randi() % 4 -2
-		self.position.y += randi() % 4 -2
+	if (randi() % 100) > 95:
+		self.position.x += randi() % 3 -1
+		self.position.y += randi() % 3 -1
