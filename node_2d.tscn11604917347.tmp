@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=4 uid="uid://d358ctbtg0ja"]
+[gd_scene load_steps=150 format=4 uid="uid://d358ctbtg0ja"]
 
 [ext_resource type="Script" uid="uid://jdoh3itxybnl" path="res://character_body_2d.gd" id="1_0hol4"]
 [ext_resource type="Script" uid="uid://8i00md8kosir" path="res://node_2d.gd" id="1_nr8wp"]
@@ -4157,10 +4157,6 @@ sources/0 = SubResource("TileSetAtlasSource_7mj2a")
 atlas = ExtResource("11_0h7mo")
 region = Rect2(2, 41, 68, 87)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5fipt"]
-atlas = ExtResource("11_0h7mo")
-region = Rect2(99, 137, 59, 87)
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_nr8wp")
 
@@ -4244,7 +4240,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Camera2D/Area2D"]
 position = Vector2(-1.06543, -1.09033)
-scale = Vector2(1.17808, 1.20059)
 shape = SubResource("RectangleShape2D_7plk7")
 
 [node name="CoordLabel" type="Label" parent="Player"]
@@ -6082,75 +6077,9 @@ script = ExtResource("41_fbwgr")
 
 [node name="Sprite2D" type="Sprite2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree"]
 z_index = 5
-texture = SubResource("AtlasTexture_5fipt")
+texture = SubResource("AtlasTexture_lyuya")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree"]
-polygon = PackedVector2Array(-6, 44, 7, 44, 4, 40, 4, 37, -3, 36, -7, 44)
-
-[node name="WeepingAngelTree2" type="StaticBody2D" parent="CreepingTreesIsle/WeepingAngelTrees"]
-position = Vector2(10869, -4768)
-script = ExtResource("41_fbwgr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree2"]
-z_index = 5
-texture = SubResource("AtlasTexture_5fipt")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree2"]
-polygon = PackedVector2Array(-6, 44, 7, 44, 4, 40, 4, 37, -3, 36, -7, 44)
-
-[node name="WeepingAngelTree3" type="StaticBody2D" parent="CreepingTreesIsle/WeepingAngelTrees"]
-position = Vector2(10927, -4702)
-script = ExtResource("41_fbwgr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree3"]
-z_index = 5
-texture = SubResource("AtlasTexture_5fipt")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree3"]
-polygon = PackedVector2Array(-6, 44, 7, 44, 4, 40, 4, 37, -3, 36, -7, 44)
-
-[node name="WeepingAngelTree4" type="StaticBody2D" parent="CreepingTreesIsle/WeepingAngelTrees"]
-position = Vector2(10829, -4710)
-script = ExtResource("41_fbwgr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree4"]
-z_index = 5
-texture = SubResource("AtlasTexture_5fipt")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree4"]
-polygon = PackedVector2Array(-6, 44, 7, 44, 4, 40, 4, 37, -3, 36, -7, 44)
-
-[node name="WeepingAngelTree5" type="StaticBody2D" parent="CreepingTreesIsle/WeepingAngelTrees"]
-position = Vector2(10929, -4795)
-script = ExtResource("41_fbwgr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree5"]
-z_index = 5
-texture = SubResource("AtlasTexture_5fipt")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree5"]
-polygon = PackedVector2Array(-6, 44, 7, 44, 4, 40, 4, 37, -3, 36, -7, 44)
-
-[node name="WeepingAngelTree6" type="StaticBody2D" parent="CreepingTreesIsle/WeepingAngelTrees"]
-position = Vector2(10807, -4796)
-script = ExtResource("41_fbwgr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree6"]
-z_index = 5
-texture = SubResource("AtlasTexture_5fipt")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree6"]
-polygon = PackedVector2Array(-6, 44, 7, 44, 4, 40, 4, 37, -3, 36, -7, 44)
-
-[node name="WeepingAngelTree7" type="StaticBody2D" parent="CreepingTreesIsle/WeepingAngelTrees"]
-position = Vector2(10879, -4721)
-script = ExtResource("41_fbwgr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree7"]
-z_index = 5
-texture = SubResource("AtlasTexture_5fipt")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree7"]
 polygon = PackedVector2Array(-6, 44, 7, 44, 4, 40, 4, 37, -3, 36, -7, 44)
 
 [node name="Crow" type="CharacterBody2D" parent="CreepingTreesIsle"]
@@ -6166,7 +6095,6 @@ position = Vector2(1, 9)
 shape = SubResource("CircleShape2D_k73cj")
 
 [connection signal="body_entered" from="Player/Camera2D/Area2D" to="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Player/Camera2D/Area2D" to="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="InitialIsland/Guy/Area2D2" to="InitialIsland/Guy" method="_on_area_2d_2_body_entered"]
 [connection signal="body_exited" from="InitialIsland/Guy/Area2D2" to="InitialIsland/Guy" method="_on_area_2d_2_body_exited"]
 [connection signal="body_entered" from="Boat/Area2D" to="Boat" method="_on_area_2d_body_entered"]

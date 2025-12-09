@@ -24,8 +24,6 @@ func _physics_process(_delta):
 		
 	if not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and not Input.is_action_pressed("down") and not Input.is_action_pressed("up"):
 		_animated_sprite.play("idleDown")
-		velocity.x = 0
-		velocity.y = 0
 	if menuMode == false:
 		if Input.is_action_pressed("right"):
 			velocity.x += speed 
@@ -74,5 +72,5 @@ func _physics_process(_delta):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		print("asd")
-		get_tree().change_scene_to_file("LagoonHouse.tscn")
-		#LagoonHouse.add_child(self)
+		get_tree().change_scene_to_file("node_2d.tscn")
+		var player = get_node("/root/Node2D/Player")

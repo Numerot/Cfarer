@@ -20,10 +20,10 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		player_in_range_boat = false
 
 func _physics_process(_delta):	
+	var player = get_node("../Player")
 	if Input.is_action_just_pressed("interact") and player_in_range_boat == true:
 		var playerAnim = get_node("../Player/AnimatedSprite2D2")
 		playerAnim.visible = false
-		var player = get_node("../Player")
 		player.speed = 0
 		player.boatMode = true
 		speed = boatSpeed
@@ -34,11 +34,10 @@ func _physics_process(_delta):
 		$Boat.visible = false
 		$BoatAnimated.visible = true
 		$BoatGuy.visible = true
-	
-	var player = get_node("../Player")
-	if Input.is_action_just_pressed("deboat") and player.boatMode == true:
+		get_node("/root/Node2D/Player/PlayerCollision").disabled = true
+	elif Input.is_action_just_pressed("interact") and player.boatMode == true:
 		var playerAnim = get_node("../Player/AnimatedSprite2D2")
-		playerAnim.visible = true
+		playerAnim.visible = true	
 		player.speed = 5
 		speed = 0
 		var playerCamera = get_node("../Player/Camera2D")
@@ -53,6 +52,7 @@ func _physics_process(_delta):
 		$BoatAnimated.visible = false
 		$Boat.visible = true
 		$BoatGuy.visible = false
+		get_node("/root/Node2D/Player/PlayerCollision").disabled = false
 	
 	if Input.is_action_pressed("right"):
 		velocity.x += speed 
@@ -72,6 +72,11 @@ func _physics_process(_delta):
 		velocity.x = 0
 		velocity.y = 0
 		
+	if Input.is_action_pressed("speedUp"):
+			maxSpeed = maxSpeed*1.1
+	if Input.is_action_pressed("speedDown"):
+			maxSpeed = maxSpeed/1.1
+
 	if velocity.x >= maxSpeed:
 		velocity.x = maxSpeed
 	if velocity.x <= -maxSpeed:
