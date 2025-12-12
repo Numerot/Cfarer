@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var boatSpeed = 4
 @export var maxSpeed = 140
 @export var player_in_range_boat := false
+@export var canDeBoat = false
 @onready var _animated_sprite = $BoatAnimated
 @onready var _boatguy = $BoatGuy
 
@@ -11,13 +12,27 @@ func _on_ready():
 	var player = get_node("/root/Node2D/Player")
 	add_collision_exception_with(player)
 
+# This works right now, but I have NO IDEA if it's even remotely sustainable
+# or it this shouldn't be done otherwise. This is currently checking for if 
+# 1: Player has entered the boat entry zone, and if 2: Boat has entered the
+# deBoat zones. Why doesn't this create a separate function for each signal
+# instance? Seems very strange, maybe the signal has it baked in that "body"
+# can only refer to one of the two parties of the signal, but I think this also
+# fires if ANY body enters the area (thus body.name == Player/Boat).
+
+# EDIT: Doesn't work.
+ 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_range_boat = true
+	#if body.name == "Boat" and get_current_signal_sender().name == "DeBoat":
+		#canDeBoat = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_range_boat = false
+	if body.name == "DeBoat":
+		canDeBoat = false
 
 func _physics_process(_delta):	
 	var player = get_node("../Player")
@@ -35,6 +50,7 @@ func _physics_process(_delta):
 		$BoatAnimated.visible = true
 		$BoatGuy.visible = true
 		get_node("/root/Node2D/Player/PlayerCollision").disabled = true
+#		add and canDeBoat = true when you've fixed the POS
 	elif Input.is_action_just_pressed("interact") and player.boatMode == true:
 		var playerAnim = get_node("../Player/AnimatedSprite2D2")
 		playerAnim.visible = true	
@@ -95,3 +111,7 @@ func _physics_process(_delta):
 		#velocity.y -= 1
 	#if velocity.y < 0:
 		#velocity.y += 1
+
+
+func _on_de_boat_body_exited(body: Node2D) -> void:
+	pass # Replace with function body.

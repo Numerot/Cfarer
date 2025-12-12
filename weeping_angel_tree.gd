@@ -4,6 +4,12 @@ var everSeen = false
 var onScreen = false
 var movedYet = false
 
+# NOTE: currently only ONE of the trees works(/"works"), probably something to do with
+# it being named WeepingAngelTree and not WeepingAngelTree[X] or with 
+# movedYet or something, idk. Nothing's stopping them from jumping into the sea,
+# either.
+# 
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#if body.name == "WeepingAngelTree":
 	if body.get_parent().name == "WeepingAngelTrees":

@@ -3,25 +3,18 @@ extends CharacterBody2D
 @onready var _animated_sprite = $AnimatedSprite2D2
 @export var speed = 10
 @export var maxSpeed = 60
-@onready var CoordLabel: Label = $CoordLabel
 @export var boatMode = false
 @export var menuMode = false
 @export var inventory = ["stick", "rock"]
+signal menuStart
 
 func _physics_process(_delta):
-	if Input.is_action_pressed("menu") and menuMode == false:
+	if Input.is_action_just_pressed("menu") and menuMode == false:
 		menuMode = true
-		$Camera2D/Menu.visible = true
-		var menu = get_node("/root/Node2D/Player/Camera2D/Menu")
-		var ticker = 1
-		for i in menu.menuItems:
-			var menuItem = Label.new()
-			menuItem.position.x = 0
-			menuItem.position.y = -20+ticker*20
-			$Camera2D/Menu/Panel.add_child(menuItem)
-			menuItem.text = i
-			ticker += 1
-		
+		menuStart.emit()
+	#if Input.is_action_just_pressed("menu") and menuMode == true:
+		#menuMode = false
+		#Disabled for testing
 	if not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and not Input.is_action_pressed("down") and not Input.is_action_pressed("up"):
 		_animated_sprite.play("idleDown")
 		velocity.x = 0
@@ -69,10 +62,8 @@ func _physics_process(_delta):
 		velocity.y -= 1
 	if velocity.y < 0:
 		velocity.y += 1
-	CoordLabel.text = str(position)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		print("asd")
 		get_tree().change_scene_to_file("LagoonHouse.tscn")
 		#LagoonHouse.add_child(self)
