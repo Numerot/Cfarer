@@ -11,6 +11,9 @@ func _physics_process(delta: float) -> void:
 
 func _on_animation_looped() -> void:
 	var boat = get_node("/root/Node2D/Boat/BoatGuy")
-	position.x = boat.position.x-randi()%400+200
-	position.y = boat.position.y-randi()%400+200
-	play("gust")
+	position.x = boat.position.x-randi()%800+400
+	position.y = boat.position.y-randi()%600+300
+	speed_scale = (randi()%100+80)/100.0
+	scale.x = (randi()%100+50)/1000.0
+	scale.y = scale.x
+	rotation = get_node("/root/Node2D/Boat").windDir
