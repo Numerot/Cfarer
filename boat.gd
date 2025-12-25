@@ -2,15 +2,15 @@ extends CharacterBody2D
 
 @export var speed = 0
 @export var boatSpeed = 3
-@export var maxSpeed = 1000
+@export var maxSpeed = 10000
 @export var player_in_range_boat := false
 @export var canDeBoat = false
 @onready var _animated_sprite = $BoatAnimated
 @onready var _boatguy = $BoatGuy
 var windDir = randi()%100
-var windSpeed = 100
-@export var ownVelocityX = 0
-@export var ownVelocityY = 0
+var windSpeed = 50
+#@export var ownVelocityX = 0
+#@export var ownVelocityY = 0
 @export var windVelocityX = 0
 @export var windVelocityY = 0
 var positionStore
@@ -59,6 +59,8 @@ func _physics_process(_delta):
 		$Boat.visible = false
 		$BoatAnimated.visible = true
 		$BoatGuy.visible = true
+		$Camera2D/WindDirPointer.visible = true
+		$Camera2D/WindDirLabel.visible = true
 		get_node("/root/Node2D/Player/PlayerCollision").disabled = true
 #		add "and canDeBoat = true" to the elif below when you've fixed the POS
 	elif Input.is_action_just_pressed("interact") and player.boatMode == true:
@@ -78,6 +80,8 @@ func _physics_process(_delta):
 		$BoatAnimated.visible = false
 		$Boat.visible = true
 		$BoatGuy.visible = false
+		$Camera2D/WindDirPointer.visible = false
+		$Camera2D/WindDirLabel.visible = false
 		get_node("/root/Node2D/Player/PlayerCollision").disabled = false
 	
 	if Input.is_action_pressed("right"):
@@ -109,7 +113,7 @@ func _physics_process(_delta):
 	if %Player.boatMode == true:
 		velocity.x += cos(windDir) * windSpeed/100
 		velocity.y += sin(windDir) * windSpeed/100
-	#
+	
 	#if velocity.x > 0 and velocity.x > maxSpeed:
 		#velocity.x = maxSpeed
 	#if velocity.x < 0 and velocity.x < -maxSpeed:

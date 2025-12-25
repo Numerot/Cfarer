@@ -1,8 +1,8 @@
-extends AnimatedSprite2D
+extends CharacterBody2D
 
 func _physics_process(delta):
 		if (randi() % 300) > 298:
-			play("idle")
+			$AnimatedSprite2D.play("idle")
 		if (randi() % 100) > 97:
 			self.position.x -= randi() % 2 - 1
 		if (randi() % 100) > 97:

@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var maxSpeed = 100
 @export var boatMode = false
 @export var menuMode = false
-@export var inventory = ["Stick", "Rock"]
+@export var inventory = ["Stick", "Rock", "Spade"]
 signal menuStart
 
 func _physics_process(_delta):
@@ -22,24 +22,25 @@ func _physics_process(_delta):
 		velocity.y = 0
 	if menuMode == false:
 		if Input.is_action_pressed("right"):
-			velocity.x += speed 
-			_animated_sprite.play("runRight")	
-			$AnimatedSprite2D2.flip_h = false
+			velocity.x += speed
 		if Input.is_action_pressed("left"):
 			velocity.x -= speed
-			_animated_sprite.play("runRight")
-			$AnimatedSprite2D2.flip_h = true
 		if Input.is_action_pressed("up"):
 			velocity.y -= speed
-			_animated_sprite.play("runUp")
 		if Input.is_action_pressed("down"):
 			velocity.y += speed
+
+		if Input.is_action_just_pressed("right"):
+			_animated_sprite.play("runRight")
+			$AnimatedSprite2D2.flip_h = false
+		if Input.is_action_just_pressed("left"):
+			_animated_sprite.play("runRight")
+			$AnimatedSprite2D2.flip_h = true
+		if Input.is_action_just_pressed("up"):
+			_animated_sprite.play("runUp")
+		if Input.is_action_just_pressed("down"):
 			_animated_sprite.play("runDown")
-		if Input.is_action_pressed("return"):
-			position.x = 0
-			position.y = 0
-			velocity.x = 0
-			velocity.y = 0
+
 		if Input.is_action_pressed("speedUp"):
 			maxSpeed = maxSpeed*1.1
 		if Input.is_action_pressed("speedDown"):
