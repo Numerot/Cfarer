@@ -9,6 +9,10 @@ extends CharacterBody2D
 signal menuStart
 
 func _physics_process(_delta):
+	#if boatMode == true:
+		#$Sprite2D.visible = false
+	#if boatMode == false:
+		#$Sprite2D.visible = true
 	if Input.is_action_just_pressed("menu"):
 		if menuMode == false:
 			menuMode = true

@@ -1,19 +1,24 @@
 extends CharacterBody2D
 
 @export var speed = 0
-@export var boatSpeed = 3
-@export var maxSpeed = 10000
+@export var boatSpeed = 1.5
+@export var maxSpeed = 1000
 @export var player_in_range_boat := false
 @export var canDeBoat = false
 @onready var _animated_sprite = $BoatAnimated
 @onready var _boatguy = $BoatGuy
+var drag = 0.00001
 var windDir = randi()%100
-var windSpeed = 50
+var windSpeed = 10
 #@export var ownVelocityX = 0
 #@export var ownVelocityY = 0
 @export var windVelocityX = 0
 @export var windVelocityY = 0
 var positionStore
+@export var windMin = 0
+@export var windMax = 13
+signal boatEnter
+signal boatExit
 
 func _on_ready():
 	var player = get_node("/root/Node2D/Player")
@@ -61,7 +66,14 @@ func _physics_process(_delta):
 		$BoatGuy.visible = true
 		$Camera2D/WindDirPointer.visible = true
 		$Camera2D/WindDirLabel.visible = true
-		get_node("/root/Node2D/Player/PlayerCollision").disabled = true
+		get_node("/root/Node2D/Player/Camera2D/NightFilter").visible = false
+		if get_node("/root/Node2D").dayNight == "Night":
+			get_node("/root/Node2D/Boat/Camera2D/NightFilter").visible = true
+		get_node("/root/Node2D/Player/Camera2D/NightFilter").visible = false
+		get_node("/root/Node2D/Player/Camera2D/TimeLabel").visible = false
+		get_node("/root/Node2D/Boat/Camera2D/TimeLabel").visible = true
+		boatEnter.emit()
+
 #		add "and canDeBoat = true" to the elif below when you've fixed the POS
 	elif Input.is_action_just_pressed("interact") and player.boatMode == true:
 		var playerAnim = get_node("../Player/AnimatedSprite2D2")
@@ -83,21 +95,23 @@ func _physics_process(_delta):
 		$Camera2D/WindDirPointer.visible = false
 		$Camera2D/WindDirLabel.visible = false
 		get_node("/root/Node2D/Player/PlayerCollision").disabled = false
+		get_node("/root/Node2D/Boat/Camera2D/NightFilter").visible = false
+		if get_node("/root/Node2D").dayNight == "Night":
+			get_node("/root/Node2D/Player/Camera2D/NightFilter").visible = true
+		get_node("/root/Node2D/Player/Camera2D/TimeLabel").visible = true
+		get_node("/root/Node2D/Boat/Camera2D/TimeLabel").visible = false
+		boatExit.emit()
 	
 	if Input.is_action_pressed("right"):
-		#ownVelocityX += speed
 		velocity.x += speed
 		_animated_sprite.play("right")
 	if Input.is_action_pressed("left"):
-		#ownVelocityX -= speed
 		velocity.x -= speed
 		_animated_sprite.play("left")
 	if Input.is_action_pressed("up"):
-		#ownVelocityY -= speed
 		velocity.y -= speed
 		_animated_sprite.play("up")
 	if Input.is_action_pressed("down"):
-		#ownVelocityY += speed
 		velocity.y += speed
 		_animated_sprite.play("down")
 		
@@ -107,21 +121,20 @@ func _physics_process(_delta):
 			maxSpeed = maxSpeed/1.1
 
 	windDir += randf_range(-0.04, +0.04)
-	windSpeed += randi()%5-2
+	if randi()%100 > 96: 
+		windSpeed += randi()%3-1
+	if windSpeed < windMin:
+		windSpeed = windMin
+	if windSpeed > windMax:
+			windSpeed = windMax
 	get_node("/root/Node2D/Boat/Camera2D/WindDirLabel").text = str(windSpeed)
 		
 	if %Player.boatMode == true:
 		velocity.x += cos(windDir) * windSpeed/100
-		velocity.y += sin(windDir) * windSpeed/100
-	
-	#if velocity.x > 0 and velocity.x > maxSpeed:
-		#velocity.x = maxSpeed
-	#if velocity.x < 0 and velocity.x < -maxSpeed:
-		#velocity.x = -maxSpeed
-	#if velocity.y > 0 and velocity.y > maxSpeed:
-		#velocity.y = maxSpeed
-	#if velocity.y < 0 and velocity.y < -maxSpeed:
-		#velocity.y = -maxSpeed
+		velocity.y += sin(windDir) * windSpeed/10
+		
+	velocity.x = velocity.x-(drag*velocity.x*abs(velocity.x))
+	velocity.y = velocity.y-(drag*velocity.y*abs(velocity.y))
 	
 	move_and_slide()
 	if position == positionStore:

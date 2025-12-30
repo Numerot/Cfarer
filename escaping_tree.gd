@@ -5,7 +5,7 @@ extends StaticBody2D
 @export var nudgeDist = 0.5
 
 func _physics_process (delta):
-	if randi() % 1000 > 996:
+	if randi() % 1000 > 994:
 		if position.y-player.position.y < ewwDist and position.y-player.position.y > -ewwDist:
 			if position.x-player.position.x < ewwDist and position.x-player.position.x > 0:
 				position.x += nudgeDist
