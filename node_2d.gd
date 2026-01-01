@@ -18,8 +18,8 @@ func _physics_process(delta: float):
 		$Boat/Camera2D.zoom.y = 0.15
 		zoomOut = true
 	elif Input.is_action_just_pressed("zoomOut") and zoomOut == true:
-		$Player/Camera2D.zoom.x = 2.2
-		$Player/Camera2D.zoom.y = 2.2
+		$Player/Camera2D.zoom.x = 2
+		$Player/Camera2D.zoom.y = 2
 		$Boat/Camera2D.zoom.x = 1.5
 		$Boat/Camera2D.zoom.y = 1.5
 		zoomOut = false

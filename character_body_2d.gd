@@ -2,10 +2,11 @@ extends CharacterBody2D
 
 @onready var _animated_sprite = $AnimatedSprite2D2
 @export var speed = 15
-@export var maxSpeed = 100
+@export var maxSpeed = 80
 @export var boatMode = false
 @export var menuMode = false
-@export var inventory = ["Stick", "Rock", "Spade"]
+@export var dialogueMode = false
+@export var inventory = ["Spade", "Anchor"]
 signal menuStart
 
 func _physics_process(_delta):
@@ -24,7 +25,7 @@ func _physics_process(_delta):
 		_animated_sprite.play("idleDown")
 		velocity.x = 0
 		velocity.y = 0
-	if menuMode == false:
+	if menuMode == false and dialogueMode == false:
 		if Input.is_action_pressed("right"):
 			velocity.x += speed
 		if Input.is_action_pressed("left"):

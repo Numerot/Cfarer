@@ -2,6 +2,7 @@ extends AudioStreamPlayer
 
 func _on_boat_boat_enter() -> void:
 	play(0.0)
+	volume_db = -200
 
 func _physics_process(delta: float) -> void:
 	if get_node("/root/Node2D/Player").boatMode == true:

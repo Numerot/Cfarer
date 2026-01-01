@@ -1,14 +1,28 @@
 extends CanvasLayer
 
 @onready var player = get_node("/root/Node2D/Player")
+@onready var boat = get_node("/root/Node2D/Boat")
 var menuItems = ["Inventory", "Save", "Settings", "Quit"]
 var menuPointer = 0
 var subMenu = "main"
+@onready var dialogueBox = get_node("/root/Node2D/Player/Camera2D/DialogueBox")
+var inRangeOfDig = false
+signal dig
 
-func dig():
-	get_node("/root/Node2D/Player/Camera2D/CanvasLayer/Panel").visible = true
-	get_node("/root/Node2D/Player/Camera2D/CanvasLayer/Panel").visible = true
-	get_node("/root/Node2D/Player/Camera2D/CanvasLayer/Panel/Label").text = "Nothing found."
+#func dig():
+	#player.dialogueMode = true
+	#get_node("/root/Node2D/Player/Camera2D/DialogueBox/Panel").visible = true
+	#dialogueBox.visible = true
+	#if inRangeOfDig == false:
+		#dialogueBox.dialogueQueue.append("Nothing found.")
+	
+func anchorToggle():
+	if player.boatMode == true:
+		boat.anchored = not boat.anchored
+		
+func sailToggle():
+	if player.boatMode == true:
+		boat.sailUp = not boat.sailUp
 
 func quitMenu():
 	player.menuMode = false
@@ -54,38 +68,56 @@ func _physics_process(delta):
 		menuPointer -= 1
 		$Panel/MenuPointer.position.y -= 20
 		if menuPointer < 0:
-			menuPointer = menuItems.size()-1
-			$Panel/MenuPointer.position.y = 13+20*(menuItems.size()-1)
-				
+			# yeah this solution sucks
+			if subMenu == "main":
+				menuPointer = menuItems.size()-1
+				$Panel/MenuPointer.position.y = 13+20*(menuItems.size()-1)
+			if subMenu == "inventory":
+				menuPointer = player.inventory.size()-1
+				$Panel/MenuPointer.position.y = 13+20*(player.inventory.size()-1)
+
 	if Input.is_action_just_pressed("menuConfirm"):
-		if menuItems[menuPointer] == "Inventory" and subMenu == "main":
-			menuDraw(%Player.inventory)
-			subMenu = "inventory"
-		elif menuItems[menuPointer] == "Quit" and subMenu == "main":
-			get_tree().quit()
-		elif subMenu == "inventory" and player.inventory[menuPointer] == "Clownfish":
-			var label = Label.new()
-			label.text = "Clownfish"
-			get_node("/root/Node2D").add_child(label)
-			label.z_index = 100
-			label.global_position = player.global_position
-			quitMenu()
-		elif subMenu == "inventory" and player.inventory[menuPointer] == "Stick":
-			var label = Label.new()
-			label.text = "Stick"
-			get_node("/root/Node2D").add_child(label)
-			label.z_index = 100
-			label.global_position = player.global_position
-			quitMenu()
-		elif subMenu == "inventory" and player.inventory[menuPointer] == "Rock":
-			var label = Label.new()
-			label.text = "Rock"
-			get_node("/root/Node2D").add_child(label)
-			label.z_index = 100
-			label.global_position = player.global_position
-			quitMenu()
-		elif subMenu == "inventory" and player.inventory[menuPointer] == "Spade":
-			dig()
-			quitMenu()
-		else:
-			quitMenu()
+		if player.menuMode == true:
+			if subMenu == "main":
+				if menuItems[menuPointer] == "Inventory":
+					menuDraw(%Player.inventory)
+					subMenu = "inventory"
+				elif menuItems[menuPointer] == "Quit":
+					get_tree().quit()
+			elif subMenu == "inventory":
+				if player.inventory[menuPointer] == "Clownfish":
+					var label = Label.new()
+					label.text = "Clownfish"
+					get_node("/root/Node2D").add_child(label)
+					label.z_index = 100
+					label.global_position = player.global_position
+					quitMenu()
+				if player.inventory[menuPointer] == "Stick":
+					var label = Label.new()
+					label.text = "Stick"
+					get_node("/root/Node2D").add_child(label)
+					label.z_index = 100
+					label.global_position = player.global_position
+					quitMenu()
+				if player.inventory[menuPointer] == "Rock":
+					var label = Label.new()
+					label.text = "Rock"
+					get_node("/root/Node2D").add_child(label)
+					label.z_index = 100
+					label.global_position = player.global_position
+					quitMenu()
+				if player.inventory[menuPointer] == "Spade":
+					dig.emit()
+					quitMenu()
+				if player.inventory[menuPointer] == "Sail":
+					sailToggle()
+					#dialogueBox.dialogue("Equipped sail!")
+					quitMenu()
+				if player.inventory[menuPointer] == "Anchor":
+					if player.boatMode == true:
+						anchorToggle()
+					quitMenu()
+				else:
+					quitMenu()
+			else:
+				quitMenu()
