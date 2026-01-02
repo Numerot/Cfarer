@@ -6,8 +6,13 @@ extends CharacterBody2D
 @export var boatMode = false
 @export var menuMode = false
 @export var dialogueMode = false
-@export var inventory = ["Spade", "Anchor"]
+@export var inventory = ["Anchor", "Spade", "Dredge"]
+var facing = "down"
 signal menuStart
+
+func _ready():
+	$Camera2D.zoom.x = get_node("/root/Node2D").defaultPlayerCamZoom
+	$Camera2D.zoom.y = get_node("/root/Node2D").defaultPlayerCamZoom
 
 func _physics_process(_delta):
 	#if boatMode == true:
@@ -21,19 +26,19 @@ func _physics_process(_delta):
 		elif menuMode == true:
 			menuMode = false
 			$Camera2D/Menu.visible = false
-	if not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and not Input.is_action_pressed("down") and not Input.is_action_pressed("up"):
-		_animated_sprite.play("idleDown")
-		velocity.x = 0
-		velocity.y = 0
 	if menuMode == false and dialogueMode == false:
 		if Input.is_action_pressed("right"):
 			velocity.x += speed
+			facing = "Right"
 		if Input.is_action_pressed("left"):
 			velocity.x -= speed
+			facing = "Left"
 		if Input.is_action_pressed("up"):
 			velocity.y -= speed
+			facing = "Up"
 		if Input.is_action_pressed("down"):
 			velocity.y += speed
+			facing = "Down"
 
 		if Input.is_action_just_pressed("right"):
 			_animated_sprite.play("runRight")
@@ -45,6 +50,13 @@ func _physics_process(_delta):
 			_animated_sprite.play("runUp")
 		if Input.is_action_just_pressed("down"):
 			_animated_sprite.play("runDown")
+		if not Input.is_action_pressed("right") and not Input.is_action_pressed("left") and not Input.is_action_pressed("down") and not Input.is_action_pressed("up"):
+			if facing == "Left":
+					facing = "Right"
+					$AnimatedSprite2D2.flip_h = true
+			_animated_sprite.play("idle"+str(facing))
+			velocity.x = 0
+			velocity.y = 0
 
 		if Input.is_action_pressed("speedUp"):
 			maxSpeed = maxSpeed*1.1

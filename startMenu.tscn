@@ -1,12 +1,22 @@
-[gd_scene format=3 uid="uid://bs2quchpfdes1"]
+[gd_scene load_steps=3 format=3 uid="uid://bs2quchpfdes1"]
+
+[ext_resource type="Script" uid="uid://gt6sesjwwsr4" path="res://start_menu.gd" id="1_gqihx"]
+[ext_resource type="Script" uid="uid://nq8egfuaw4lr" path="res://label.gd" id="2_1ydhs"]
 
 [node name="StartMenu" type="Node2D"]
+script = ExtResource("1_gqihx")
 
 [node name="Panel" type="Panel" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1280.0
+offset_bottom = 900.0
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 418.0
+offset_top = 255.0
+offset_right = 579.0
+offset_bottom = 278.0
+text = "Press ENTER to start!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_1ydhs")

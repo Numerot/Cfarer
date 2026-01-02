@@ -9,6 +9,8 @@ signal nightfall
 signal sunrise
 var hourLength = 720
 var dayLength = 12
+var defaultPlayerCamZoom = 2
+var defaultBoatCamZoom = 1.5
 
 func _physics_process(delta: float):
 	if Input.is_action_just_pressed("zoomOut") and zoomOut == false:
@@ -18,10 +20,10 @@ func _physics_process(delta: float):
 		$Boat/Camera2D.zoom.y = 0.15
 		zoomOut = true
 	elif Input.is_action_just_pressed("zoomOut") and zoomOut == true:
-		$Player/Camera2D.zoom.x = 2
-		$Player/Camera2D.zoom.y = 2
-		$Boat/Camera2D.zoom.x = 1.5
-		$Boat/Camera2D.zoom.y = 1.5
+		$Player/Camera2D.zoom.x = defaultPlayerCamZoom
+		$Player/Camera2D.zoom.y = defaultPlayerCamZoom
+		$Boat/Camera2D.zoom.x = defaultBoatCamZoom
+		$Boat/Camera2D.zoom.y = defaultBoatCamZoom
 		zoomOut = false
 
 	time += 1

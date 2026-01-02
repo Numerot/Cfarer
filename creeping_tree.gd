@@ -7,6 +7,8 @@ func _on_boat_boat_exit() -> void:
 	if CreepingEntryCheck.playerHere == true:
 		volume_db = -30
 		play(0.0)
+		print("Now playing 'CreepingTrees'.")
+
 
 func _physics_process(delta: float) -> void:
 	if CreepingEntryCheck.playerHere == true:

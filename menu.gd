@@ -8,6 +8,7 @@ var subMenu = "main"
 @onready var dialogueBox = get_node("/root/Node2D/Player/Camera2D/DialogueBox")
 var inRangeOfDig = false
 signal dig
+signal dredge
 
 #func dig():
 	#player.dialogueMode = true
@@ -108,6 +109,9 @@ func _physics_process(delta):
 					quitMenu()
 				if player.inventory[menuPointer] == "Spade":
 					dig.emit()
+					quitMenu()
+				if player.inventory[menuPointer] == "Dredge":
+					dredge.emit()
 					quitMenu()
 				if player.inventory[menuPointer] == "Sail":
 					sailToggle()
