@@ -82,6 +82,9 @@ func _physics_process(_delta):
 	if velocity.y < 0:
 		velocity.y += 1
 
+	#if $AnimatedSprite2D2.animation == "runRight" and $AnimatedSprite2D2.frame == 5:
+		#get_node("/root/Node2D/Sounds/Step").play(0.0)
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		get_tree().change_scene_to_file("LagoonHouse.tscn")

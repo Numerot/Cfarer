@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 0
 @export var boatSpeed = 1.5
+@export var boatSpeedMemory = boatSpeed
 @export var maxSpeed = 1000
 @export var player_in_range_boat := false
 @export var canDeBoat = false
