@@ -20,6 +20,10 @@ func _physics_process(delta: float):
 		else:
 			$Boat.drag = 0.0001
 			$Boat.speed = $Boat.boatSpeed
+		if $Player.maxSpeed < 800:
+			$Player.maxSpeed = 800
+		else:
+			$Player.maxSpeed = 80	
 	#if Input.is_action_just_pressed("collisionToggle"):
 		#$Player/PlayerCollision.disabled = not $Player/PlayerCollision.enabled
 		#$Boat/CollisionShape2D.disabled = not $Boat/CollisionShape2D.enabled
@@ -48,7 +52,10 @@ func _physics_process(delta: float):
 		time = 0
 		get_node("/root/Node2D/Player/Camera2D/TimeLabel").text = "Hour"+str(hour)+dayNight+str(day)
 		get_node("/root/Node2D/Boat/Camera2D/TimeLabel").text = "Hour"+str(hour)+dayNight+str(day)
-
+		if hour < 9:
+			$Player/Camera2D/NightFilter.modulate = hour*20
+		if hour > 9:
+			$Player/Camera2D/NightFilter.modulate = 80-hour*20
 	if hour >= dayLength:
 		hour = 0
 		dayNight = "Day"

@@ -126,6 +126,8 @@ func _physics_process(_delta):
 	
 	if anchored == false:
 		move_and_slide()
+	if Engine.get_physics_frames() % 60 == 0:
+		print(str(int(velocity.x))+" "+str(int(velocity.y)))
 	if position == positionStore:
 		velocity.x = 0
 		velocity.y = 0
