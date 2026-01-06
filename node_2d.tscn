@@ -1,4 +1,4 @@
-[gd_scene load_steps=303 format=4 uid="uid://d358ctbtg0ja"]
+[gd_scene load_steps=311 format=4 uid="uid://d358ctbtg0ja"]
 
 [ext_resource type="Script" uid="uid://jdoh3itxybnl" path="res://character_body_2d.gd" id="1_0hol4"]
 [ext_resource type="Script" uid="uid://8i00md8kosir" path="res://node_2d.gd" id="1_nr8wp"]
@@ -89,6 +89,8 @@
 [ext_resource type="Script" uid="uid://b1gnygv1oo6wn" path="res://big_fish_2.gd" id="71_r3ryn"]
 [ext_resource type="Texture2D" uid="uid://b01fxt8eqelab" path="res://Tilesets/Trees+.png" id="72_ld5wt"]
 [ext_resource type="Script" uid="uid://dceqn5x1203qm" path="res://wandering_boat_limit.gd" id="72_r8aua"]
+[ext_resource type="Script" uid="uid://dedr50nmys68q" path="res://ToCenter.gd" id="73_oixsq"]
+[ext_resource type="Script" uid="uid://bogio8khqwf5e" path="res://talk_range.gd" id="73_uo258"]
 [ext_resource type="Script" uid="uid://bfa32mwlyh41m" path="res://wanderingIsleTree.gd" id="73_wcv2n"]
 [ext_resource type="Script" uid="uid://djlwmrx81nmsa" path="res://wandering_dig.gd" id="74_b0j31"]
 [ext_resource type="Script" uid="uid://ba6gnsqk1a8oi" path="res://jewel_dig.gd" id="74_c6xte"]
@@ -106,12 +108,16 @@
 [ext_resource type="AudioStream" uid="uid://dd3hwg7m2aomt" path="res://Audio/Music/step.mp3" id="88_4himb"]
 [ext_resource type="Texture2D" uid="uid://b12yghr7o7d3g" path="res://Sprites/Adopt a Tree.png" id="89_1m5r5"]
 [ext_resource type="Texture2D" uid="uid://ofy1n3xgx2g1" path="res://Sprites/Fruit+.png" id="90_2wyoe"]
+[ext_resource type="Script" uid="uid://bsxho4wn6lnnj" path="res://sounds.gd" id="97_qwoqy"]
+[ext_resource type="AudioStream" uid="uid://dvg5a5t8xpptd" path="res://Audio/Music/sailing2.mp3" id="99_jinwr"]
 [ext_resource type="Script" uid="uid://jpbt62vf78d6" path="res://bigFishPath.gd" id="100_0dcxc"]
+[ext_resource type="Script" uid="uid://bbia02bn0kjtg" path="res://sailing_2bgm.gd" id="100_qwoqy"]
 [ext_resource type="Script" uid="uid://cejvfj7uip6lq" path="res://wandering_isle.gd" id="101_j2pq0"]
 [ext_resource type="Script" uid="uid://dkh58prehwwbn" path="res://dipper_isle.gd" id="103_sduiw"]
 [ext_resource type="Script" uid="uid://m1k0ns3rwaoj" path="res://far_isle_bgm.gd" id="108_2l1wp"]
 [ext_resource type="AudioStream" uid="uid://bohp0lg0e1hbf" path="res://Audio/Music/farIsle.mp3" id="108_bxemi"]
 [ext_resource type="AudioStream" uid="uid://oieq1yhi1jqi" path="res://Audio/Music/wandering.mp3" id="110_bxemi"]
+[ext_resource type="AudioStream" uid="uid://d2rapa8tdjum" path="res://Audio/Music/SailingStill.mp3" id="110_dkifn"]
 [ext_resource type="Script" uid="uid://dt43ps7nrbnm5" path="res://wandering_bgm.gd" id="111_qoxh5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nr8wp"]
@@ -4387,6 +4393,15 @@ _data = {
 }
 point_count = 23
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oixsq"]
+height = 40.9268
+
+[sub_resource type="Curve2D" id="Curve2D_dkifn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 10776, 2147, 0, 0, 0, 0, 10868, 2245, -0.683013, -27.3205, 0.683013, 27.3205, 10945, 2315, 1.36603, -32.7846, -1.36603, 32.7846, 10917, 2365, -8.19616, -36.1997, 8.19616, 36.1997, 10959, 2411, 7.51315, -32.1016, -7.51315, 32.1016, 10933, 2468, 0, 0, 0, 0, 10962, 2495)
+}
+point_count = 7
+
 [sub_resource type="Curve2D" id="Curve2D_0dcxc"]
 _data = {
 "points": PackedVector2Array(-36.208, -1.44832, 36.208, 1.44832, 6437, -4130, -277.531, -272.343, 277.531, 272.343, 7207, -3720, 485.737, -186.278, -485.737, 186.278, 7005, -2947, 417.357, 403.209, -417.357, -403.209, 5317, -3095, -181.562, 212.215, 181.562, -212.215, 5451, -3909, -60.9373, 13.245, 60.9373, -13.245, 5813, -4236, 0, 0, 0, 0, 6148, -4205, 0, 0, 0, 0, 6437, -4130)
@@ -7536,6 +7551,7 @@ offset_bottom = 23.0
 text = "1"
 
 [node name="DialogueBox" type="CanvasLayer" parent="Player/Camera2D"]
+unique_name_in_owner = true
 layer = 100
 visible = false
 script = ExtResource("5_qu7as")
@@ -7637,6 +7653,7 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("8_wqmsq")
 
 [node name="Boat" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
 z_index = 9
 position = Vector2(6843, -1699)
 script = ExtResource("20_7vxoj")
@@ -7729,11 +7746,13 @@ animation = &"gust"
 script = ExtResource("23_6orn5")
 
 [node name="WindDirPointer" type="Sprite2D" parent="Boat/Camera2D"]
+visible = false
 position = Vector2(-403, -221)
 texture = SubResource("AtlasTexture_1m5r5")
 script = ExtResource("38_whnp6")
 
 [node name="WindDirLabel" type="Label" parent="Boat/Camera2D"]
+visible = false
 offset_left = -415.0
 offset_top = -210.0
 offset_right = -375.0
@@ -7741,6 +7760,7 @@ offset_bottom = -187.0
 text = "100"
 
 [node name="TimeLabel" type="Label" parent="Boat/Camera2D"]
+visible = false
 z_index = 1000
 offset_left = -417.0
 offset_top = 204.0
@@ -7824,7 +7844,7 @@ shape = SubResource("RectangleShape2D_7vxoj")
 visible = false
 z_index = 8
 sprite_frames = SubResource("SpriteFrames_2v765")
-animation = &"left"
+animation = &"down"
 script = ExtResource("40_m7xe6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boat"]
@@ -9748,21 +9768,39 @@ script = ExtResource("65_5od4l")
 position = Vector2(0.560547, -0.363281)
 shape = SubResource("CircleShape2D_5od4l")
 
-[node name="Path2D" type="Path2D" parent="DesertIsle"]
+[node name="PondWander" type="Path2D" parent="DesertIsle"]
 position = Vector2(10865, 2462)
 scale = Vector2(0.93462, 0.981918)
 curve = SubResource("Curve2D_inwkr")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="DesertIsle/Path2D"]
+[node name="PathFollow2D" type="PathFollow2D" parent="DesertIsle/PondWander"]
 position = Vector2(-54.0186, -79.8579)
 rotation = -2.63591
 script = ExtResource("100_0dcxc")
 
-[node name="BigFish3" type="Sprite2D" parent="DesertIsle/Path2D/PathFollow2D"]
+[node name="PondFish" type="Sprite2D" parent="DesertIsle/PondWander/PathFollow2D"]
 modulate = Color(0, 0, 0, 0.533333)
 rotation = 0.342533
 scale = Vector2(0.887022, 0.869684)
 texture = ExtResource("64_uqk8q")
+
+[node name="TalkRange" type="Area2D" parent="DesertIsle/PondWander/PathFollow2D/PondFish"]
+script = ExtResource("73_uo258")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DesertIsle/PondWander/PathFollow2D/PondFish/TalkRange"]
+position = Vector2(-0.872135, -3.26527)
+rotation = 0.866426
+scale = Vector2(-3.95393, 4.0406)
+shape = SubResource("CapsuleShape2D_oixsq")
+
+[node name="ToCenter" type="Path2D" parent="DesertIsle"]
+curve = SubResource("Curve2D_dkifn")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="DesertIsle/ToCenter"]
+position = Vector2(10776, 2147)
+rotation = 0.816967
+loop = false
+script = ExtResource("73_oixsq")
 
 [node name="WanderingIsle" type="Node2D" parent="."]
 
@@ -9862,6 +9900,7 @@ texture = ExtResource("64_uqk8q")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WanderingIsle/Path2D/PathFollow2D"]
 position = Vector2(170.633, -30.2249)
 stream = ExtResource("78_6jj3b")
+volume_db = -5.0
 pitch_scale = 0.61
 autoplay = true
 max_distance = 1800.0
@@ -9962,20 +10001,21 @@ scale = Vector2(27.2426, 23.5406)
 shape = SubResource("CircleShape2D_16pp4")
 
 [node name="DipperIsle" type="Node2D" parent="."]
+position = Vector2(6430.77, -452.517)
 
 [node name="DipperIsle" type="TileMapLayer" parent="DipperIsle"]
-position = Vector2(3464, 791.022)
+position = Vector2(-4.7749, 53.5168)
 rotation = 0.0475275
-tile_map_data = PackedByteArray("AAAFAP//AAADAAMAAAAFAAAAAAADAAMAAAAEAAEAAAAAAAQAAAAEAAAAAAADAAMAAAAEAP//AAADAAMAAAAEAP7/AAADAAMAAAAEAP3/AAADAAMAAAAEAPv/AAADAAMAAAAEAPz/AAADAAMAAAAFAP3/AAAFAAEAAAAFAPz/AAADAAMAAAAFAPv/AAADAAMAAAAEAPn/AAABAAMAAAAEAPr/AAADAAMAAAAFAP7/AAAFAAEAAAAFAAEAAAAAAAQAAAAGAAEAAAADAAMAAAAHAAEAAAADAAMAAAAGAAAAAAADAAMAAAAHAAAAAAABAAMAAAAGAP//AAABAAMAAAAGAPz/AAABAAQAAAAGAPv/AAABAAMAAAAFAPr/AAABAAMAAAAIAAEAAAABAAMAAAAGAAIAAAAFAAMAAAAHAAIAAAAAAAQAAAAIAAIAAAADAAMAAAAJAAMAAAABAAQAAAAJAAIAAAABAAMAAAAIAAMAAAAFAAMAAAADAPn/AAAFAAIAAAABAPr/AAABAAMAAAACAPr/AAAFAAIAAAABAPv/AAADAAMAAAACAPv/AAADAAMAAAADAPv/AAADAAMAAAADAPr/AAADAAMAAAADAPz/AAADAAMAAAADAP3/AAADAAMAAAADAP7/AAADAAMAAAADAP//AAADAAMAAAADAAEAAAAFAAMAAAACAAAAAAAFAAMAAAABAP//AAAFAAMAAAAAAP7/AAAFAAMAAAAAAP3/AAACAAMAAAD///z/AAAAAAQAAAD+//z/AAAAAAQAAAD9//3/AAABAAMAAAD9//7/AAABAAQAAAD8//7/AAAAAAQAAAD8//3/AAADAAMAAAD8//z/AAADAAMAAAD9//z/AAAAAAQAAAD9//v/AAADAAMAAAD8//v/AAADAAMAAAD+//v/AAADAAMAAAD///v/AAADAAMAAAAAAPv/AAADAAMAAAAAAPz/AAADAAMAAAABAPz/AAAEAAIAAAABAP3/AAADAAMAAAABAP7/AAADAAMAAAACAP7/AAADAAMAAAACAPz/AAADAAMAAAACAP3/AAADAAMAAAACAP//AAADAAMAAAADAAAAAAADAAMAAAD5////AAAFAAMAAAD6////AAABAAQAAAD7//7/AAAAAAQAAAD4//7/AAAFAAMAAAD4//3/AAACAAMAAAD4//z/AAAFAAIAAAD5//z/AAAAAAMAAAD6//z/AAABAAMAAAD5//3/AAADAAMAAAD6//3/AAADAAMAAAD6//7/AAADAAMAAAD5//7/AAADAAMAAAD7//3/AAADAAMAAAD7//z/AAACAAMAAAD7//v/AAACAAMAAAD9//j/AAAAAAMAAAD8//n/AAADAAMAAAD9//n/AAADAAMAAAD8//r/AAADAAMAAAD9//r/AAADAAMAAAD+//n/AAADAAMAAAD+//r/AAAEAAIAAAD///r/AAADAAMAAAAAAPr/AAADAAMAAAD+//j/AAAAAAMAAAD///n/AAADAAMAAAAAAPn/AAABAAMAAAD///j/AAABAAMAAAD6//r/AAAFAAMAAAD5//n/AAAFAAMAAAD5//f/AAACAAMAAAD5//j/AAACAAMAAAD5//b/AAAFAAIAAAD6//X/AAAFAAIAAAD7//T/AAAFAAIAAAD8//T/AAAAAAMAAAD9//T/AAABAAMAAAD+//X/AAABAAMAAAD+//b/AAABAAQAAAD9//b/AAAAAAQAAAD8//f/AAAEAAMAAAD7//r/AAADAAMAAAD7//n/AAAEAAIAAAD7//j/AAADAAMAAAD6//j/AAADAAMAAAD6//n/AAADAAMAAAD6//f/AAADAAMAAAD7//b/AAADAAMAAAD6//b/AAADAAMAAAD7//f/AAADAAMAAAD7//X/AAADAAMAAAD8//X/AAADAAMAAAD9//X/AAADAAMAAAD8//b/AAADAAMAAAD8//j/AAADAAMAAAA=")
+tile_map_data = PackedByteArray("AAAFAP//AAADAAMAAAAFAAAAAAADAAMAAAAEAAEAAAAAAAQAAAAEAAAAAAADAAMAAAAEAP//AAADAAMAAAAEAP7/AAADAAMAAAAEAP3/AAADAAMAAAAEAPv/AAADAAMAAAAEAPz/AAADAAMAAAAFAP3/AAAFAAEAAAAFAPz/AAADAAMAAAAFAPv/AAADAAMAAAAEAPn/AAABAAMAAAAEAPr/AAADAAMAAAAFAP7/AAAFAAEAAAAFAAEAAAAAAAQAAAAGAAEAAAADAAMAAAAHAAEAAAADAAMAAAAGAAAAAAADAAMAAAAHAAAAAAABAAMAAAAGAP//AAABAAMAAAAGAPz/AAABAAQAAAAGAPv/AAABAAMAAAAFAPr/AAABAAMAAAAIAAEAAAABAAMAAAAGAAIAAAAFAAMAAAAHAAIAAAAAAAQAAAAIAAIAAAADAAMAAAAJAAMAAAABAAQAAAAJAAIAAAABAAMAAAAIAAMAAAAFAAMAAAADAPn/AAAFAAIAAAABAPr/AAABAAMAAAACAPr/AAAFAAIAAAABAPv/AAADAAMAAAACAPv/AAADAAMAAAADAPv/AAADAAMAAAADAPr/AAADAAMAAAADAPz/AAADAAMAAAADAP3/AAADAAMAAAADAP7/AAADAAMAAAADAP//AAADAAMAAAADAAEAAAAFAAMAAAACAAAAAAAFAAMAAAABAP//AAAFAAMAAAAAAP7/AAAFAAMAAAAAAP3/AAACAAMAAAD8//3/AAADAAMAAAD8//z/AAAFAAEAAAD9//v/AAADAAMAAAD8//v/AAADAAMAAAD+//v/AAADAAMAAAD///v/AAADAAMAAAAAAPv/AAADAAMAAAAAAPz/AAADAAMAAAABAPz/AAAEAAIAAAABAP3/AAADAAMAAAABAP7/AAADAAMAAAACAP7/AAADAAMAAAACAPz/AAADAAMAAAACAP3/AAADAAMAAAACAP//AAADAAMAAAADAAAAAAADAAMAAAD4//7/AAAFAAMAAAD4//3/AAACAAMAAAD4//z/AAAFAAIAAAD5//z/AAAAAAMAAAD6//z/AAABAAMAAAD5//3/AAACAAIAAAD6//3/AAADAAMAAAD7//3/AAADAAMAAAD7//z/AAACAAMAAAD7//v/AAACAAMAAAD9//j/AAAAAAMAAAD8//n/AAAEAAIAAAD9//n/AAADAAMAAAD8//r/AAADAAMAAAD9//r/AAADAAMAAAD+//n/AAADAAMAAAD+//r/AAAEAAIAAAD///r/AAADAAMAAAAAAPr/AAADAAMAAAD+//j/AAAAAAMAAAD///n/AAADAAMAAAAAAPn/AAABAAMAAAD///j/AAABAAMAAAD6//r/AAAFAAMAAAD5//n/AAAFAAMAAAD5//f/AAACAAMAAAD5//j/AAACAAMAAAD5//b/AAAFAAIAAAD6//X/AAAFAAIAAAD7//T/AAAFAAIAAAD8//T/AAAAAAMAAAD9//T/AAABAAMAAAD+//X/AAABAAMAAAD+//b/AAABAAQAAAD9//b/AAAAAAQAAAD8//f/AAAEAAMAAAD7//r/AAADAAMAAAD7//n/AAADAAIAAAD7//j/AAADAAMAAAD6//j/AAAEAAIAAAD6//n/AAADAAMAAAD6//f/AAADAAMAAAD7//b/AAADAAMAAAD6//b/AAADAAMAAAD7//f/AAADAAMAAAD7//X/AAADAAMAAAD8//X/AAADAAMAAAD9//X/AAADAAMAAAD8//b/AAADAAMAAAD8//j/AAADAAMAAAD9//z/AAAFAAEAAAD+//z/AAAFAAEAAAD///z/AAAFAAEAAAD9//7/AAABAAIAAAD+//7/AAABAAIAAAD9//3/AAABAAIAAAD///3/AAAEAAMAAAD+//3/AAAFAAEAAAD5//7/AAABAAIAAAD6//7/AAABAAIAAAD7//7/AAAFAAEAAAD7////AAAFAAEAAAD8////AAAFAAEAAAD8/wAAAAABAAIAAAD9/wAAAAAFAAEAAAD///7/AAAEAAMAAAD/////AAAEAAMAAAD+////AAABAAIAAAD9////AAAFAAEAAAD8//7/AAABAAIAAAD//wAAAAAEAAMAAAD//wEAAAABAAQAAAD+/wIAAAABAAQAAAD+/wAAAAADAAMAAAD+/wEAAAADAAMAAAD9/wEAAAADAAMAAAD8/wEAAAADAAMAAAD9/wIAAAAAAAQAAAD6/wEAAAAFAAMAAAD5/wAAAAAFAAMAAAD5////AAACAAMAAAD6////AAADAAMAAAD6/wAAAAADAAMAAAD7/wAAAAADAAMAAAD7/wEAAAAFAAEAAAD7/wIAAAACAAMAAAD7/wMAAAACAAMAAAD6/wQAAAAFAAIAAAD5/wUAAAAFAAIAAAD7/wYAAAAAAAQAAAD8/wYAAAABAAQAAAD8/wUAAAAEAAMAAAD6/wUAAAADAAMAAAD7/wUAAAAFAAEAAAD7/wQAAAADAAMAAAD8/wMAAAAEAAMAAAD8/wIAAAADAAMAAAD4/wYAAAAFAAIAAAD3/wcAAAAFAAIAAAD4/woAAAAAAAQAAAD2/wgAAAAFAAIAAAD5/wgAAAAFAAEAAAD4/wgAAAAFAAEAAAD4/wkAAAAFAAEAAAD3/wkAAAAFAAEAAAD3/wgAAAADAAMAAAD5/wkAAAADAAMAAAD4/wcAAAADAAMAAAD5/wcAAAADAAMAAAD5/wYAAAADAAMAAAD6/wYAAAAFAAEAAAD6/wcAAAAEAAMAAAD6/wgAAAAEAAMAAAD6/wkAAAADAAMAAAD7/wkAAAABAAMAAAD6/wwAAAAFAAMAAAD7/wsAAAADAAMAAAD5/wsAAAAFAAMAAAD5/woAAAADAAMAAAD6/woAAAACAAIAAAD6/wsAAAADAAMAAAD8/wQAAAAEAAMAAAD8/wwAAAABAAQAAAD7/wwAAAAAAAQAAAD9/wsAAAABAAQAAAD+/woAAAAAAAQAAAD7/woAAAADAAMAAAD8/woAAAAAAAMAAAD9/woAAAADAAMAAAD9/wkAAAAFAAIAAAD+/wgAAAAFAAIAAAD//wgAAAAAAAMAAAAAAAgAAAAAAAMAAAABAAgAAAAAAAMAAAACAAgAAAABAAMAAAADAAkAAAABAAMAAAADAAoAAAAEAAMAAAAEAAsAAAABAAMAAAD8/wsAAAADAAMAAAD+/wkAAAADAAMAAAD//wkAAAAFAAEAAAAAAAkAAAAFAAEAAAABAAkAAAADAAMAAAACAAkAAAADAAMAAAABAAoAAAAFAAEAAAAAAAoAAAAFAAEAAAD//woAAAADAAMAAAACAAoAAAAFAAEAAAD//wsAAAAFAAMAAAAAAAwAAAADAAMAAAABAA0AAAABAAQAAAAAAAsAAAADAAMAAAABAAsAAAAFAAEAAAACAAsAAAAFAAEAAAABAAwAAAADAAMAAAACAAwAAAAFAAEAAAADAAsAAAADAAMAAAADAAwAAAAFAAEAAAACAA0AAAAFAAMAAAAEAAwAAAAEAAMAAAADAA4AAAAFAAMAAAAEAA8AAAAFAAMAAAAFAA0AAAABAAMAAAAGAA4AAAABAAMAAAAEAA4AAAADAAMAAAAFAA4AAAADAAMAAAADAA0AAAADAAMAAAAEAA0AAAADAAMAAAAAAA4AAAABAAQAAAAAAA0AAAADAAMAAAD//wwAAAAFAAIAAAD+/w0AAAAFAAIAAAD+/w4AAAADAAMAAAD//w4AAAADAAMAAAD//w0AAAAFAAEAAAD9/xAAAAAAAAQAAAD+/xAAAAABAAQAAAD//w8AAAABAAQAAAD+/w8AAAADAAMAAAD9/w4AAAAAAAMAAAD8/w4AAAAFAAIAAAD7/w8AAAAFAAIAAAD7/xAAAAAFAAMAAAD8/xAAAAAAAAQAAAD8/w8AAAADAAMAAAD9/w8AAAAFAAEAAAD3/wsAAAABAAQAAAD2/wkAAAACAAMAAAD1/woAAAAFAAIAAAD2/woAAAADAAMAAAD3/woAAAADAAMAAAD2/wsAAAADAAMAAAD0/wsAAAAFAAIAAAD1/w0AAAABAAQAAAD2/wwAAAABAAQAAAD1/wsAAAADAAMAAAD1/wwAAAAFAAEAAAD0/w0AAAAFAAMAAAD0/wwAAAACAAMAAAAHABEAAAABAAQAAAAHAA8AAAABAAMAAAAHABAAAAAEAAMAAAAGABAAAAAFAAEAAAAGAA8AAAAFAAEAAAAFAA8AAAADAAMAAAAFABAAAAAFAAMAAAAGABIAAAABAAQAAAAGABEAAAADAAMAAAAFABEAAAAFAAIAAAAEABIAAAAFAAIAAAADABMAAAAFAAIAAAAEABMAAAADAAMAAAAFABIAAAADAAMAAAAFABMAAAAEAAMAAAADABQAAAACAAMAAAADABUAAAACAAMAAAADABYAAAAFAAMAAAAEABYAAAABAAQAAAAFABUAAAABAAQAAAAFABQAAAAEAAMAAAAEABQAAAADAAMAAAAEABUAAAADAAMAAAA=")
 tile_set = SubResource("TileSet_wqmsq")
 script = ExtResource("103_sduiw")
 
-[node name="BoatStuff" type="Node" parent="DipperIsle/DipperIsle"]
+[node name="BoatStuff" type="Node2D" parent="DipperIsle/DipperIsle"]
 
 [node name="DeBoat" type="Area2D" parent="DipperIsle/DipperIsle/BoatStuff"]
 z_index = 15
-position = Vector2(3565.87, 792.247)
-rotation = -0.233056
+position = Vector2(101.813, -3.61609)
+rotation = -0.280584
 scale = Vector2(1, 1.00067)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DipperIsle/DipperIsle/BoatStuff/DeBoat"]
@@ -9986,8 +10026,8 @@ shape = SubResource("RectangleShape2D_qu7as")
 
 [node name="BoatLimit" type="StaticBody2D" parent="DipperIsle/DipperIsle/BoatStuff"]
 z_index = 15
-position = Vector2(3565.87, 792.247)
-rotation = -0.233056
+position = Vector2(101.813, -3.61609)
+rotation = -0.280584
 scale = Vector2(1, 1.00067)
 script = ExtResource("26_1fr6y")
 
@@ -9998,8 +10038,8 @@ polygon = PackedVector2Array(29.0498, -8.11035, 15.0498, -12.1104, 7.0498, 0.889
 
 [node name="PlayerLimit" type="StaticBody2D" parent="DipperIsle/DipperIsle/BoatStuff"]
 z_index = 15
-position = Vector2(3565, 799)
-rotation = -0.233056
+position = Vector2(101.265, 3.17059)
+rotation = -0.280584
 scale = Vector2(1, 1.00067)
 script = ExtResource("72_r8aua")
 
@@ -10062,58 +10102,73 @@ texture = ExtResource("70_122lf")
 script = ExtResource("71_r3ryn")
 
 [node name="Sounds" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("97_qwoqy")
 
-[node name="SailingMusic" type="AudioStreamPlayer" parent="Sounds"]
+[node name="BGM" type="Node" parent="Sounds"]
+
+[node name="Sailing1BGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
 stream = ExtResource("66_t3mf0")
 volume_db = -2.0
 bus = &"BGM"
 parameters/looping = true
 script = ExtResource("67_kejda")
 
-[node name="WindSFX" type="AudioStreamPlayer" parent="Sounds"]
+[node name="Sailing2BGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
+stream = ExtResource("99_jinwr")
+parameters/looping = true
+script = ExtResource("100_qwoqy")
+
+[node name="IslandBGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
+stream = ExtResource("70_qu7as")
+bus = &"BGM"
+parameters/looping = true
+script = ExtResource("70_6uidu")
+
+[node name="CreepingTreeBGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
+stream = ExtResource("76_nsnm2")
+bus = &"BGM"
+parameters/looping = true
+script = ExtResource("77_f8kvm")
+
+[node name="DesertBGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
+stream = ExtResource("82_7ct8v")
+bus = &"BGM"
+parameters/looping = true
+script = ExtResource("83_sg3tl")
+
+[node name="FarIsleBGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
+stream = ExtResource("108_bxemi")
+parameters/looping = true
+script = ExtResource("108_2l1wp")
+
+[node name="SailingStillBGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
+stream = ExtResource("110_dkifn")
+parameters/looping = true
+
+[node name="WanderingBGM" type="AudioStreamPlayer" parent="Sounds/BGM"]
+stream = ExtResource("110_bxemi")
+bus = &"BGM"
+parameters/looping = true
+script = ExtResource("111_qoxh5")
+
+[node name="SFX" type="Node" parent="Sounds"]
+
+[node name="WindSFX" type="AudioStreamPlayer" parent="Sounds/SFX"]
 stream = ExtResource("34_q5dlx")
 volume_db = -35.0
 autoplay = true
 bus = &"WindSFX"
 script = ExtResource("35_c4wnb")
 
-[node name="IslandMusic" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("70_qu7as")
-bus = &"BGM"
-parameters/looping = true
-script = ExtResource("70_6uidu")
+[node name="Step" type="AudioStreamPlayer" parent="Sounds/SFX"]
+stream = ExtResource("88_4himb")
 
-[node name="ItemFind" type="AudioStreamPlayer" parent="Sounds"]
+[node name="ItemFound" type="AudioStreamPlayer" parent="Sounds/SFX"]
 stream = ExtResource("74_thyvg")
 volume_db = 5.0
 bus = &"BGM"
 script = ExtResource("75_nsnm2")
-
-[node name="CreepingTree" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("76_nsnm2")
-bus = &"BGM"
-parameters/looping = true
-script = ExtResource("77_f8kvm")
-
-[node name="Desert" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("82_7ct8v")
-bus = &"BGM"
-parameters/looping = true
-script = ExtResource("83_sg3tl")
-
-[node name="FarIsleBGM" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("108_bxemi")
-parameters/looping = true
-script = ExtResource("108_2l1wp")
-
-[node name="WanderingBGM" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("110_bxemi")
-bus = &"BGM"
-parameters/looping = true
-script = ExtResource("111_qoxh5")
-
-[node name="Step" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource("88_4himb")
 
 [connection signal="menuStart" from="Player" to="Player/Camera2D/Menu" method="_on_player_menu_start"]
 [connection signal="dig" from="Player/Camera2D/Menu" to="InitialIsland/TestDig" method="_on_menu_dig"]
@@ -10126,18 +10181,20 @@ stream = ExtResource("88_4himb")
 [connection signal="seafoam" from="Player/Camera2D/Menu" to="Ocean/SquidLarge/SquidArea" method="_on_menu_seafoam"]
 [connection signal="body_entered" from="Player/Camera2D/Area2D" to="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Player/Camera2D/Area2D" to="CreepingTreesIsle/WeepingAngelTrees/WeepingAngelTree" method="_on_area_2d_body_exited"]
-[connection signal="boatEnter" from="Boat" to="Sounds/SailingMusic" method="_on_boat_boat_enter"]
-[connection signal="boatEnter" from="Boat" to="Sounds/IslandMusic" method="_on_boat_boat_enter"]
-[connection signal="boatEnter" from="Boat" to="Sounds/CreepingTree" method="_on_boat_boat_enter"]
-[connection signal="boatEnter" from="Boat" to="Sounds/Desert" method="_on_boat_boat_enter"]
-[connection signal="boatEnter" from="Boat" to="Sounds/FarIsleBGM" method="_on_boat_boat_enter"]
-[connection signal="boatEnter" from="Boat" to="Sounds/WanderingBGM" method="_on_boat_boat_enter"]
-[connection signal="boatExit" from="Boat" to="Sounds/SailingMusic" method="_on_boat_boat_exit"]
-[connection signal="boatExit" from="Boat" to="Sounds/IslandMusic" method="_on_boat_boat_exit"]
-[connection signal="boatExit" from="Boat" to="Sounds/CreepingTree" method="_on_boat_boat_exit"]
-[connection signal="boatExit" from="Boat" to="Sounds/Desert" method="_on_boat_boat_exit"]
-[connection signal="boatExit" from="Boat" to="Sounds/FarIsleBGM" method="_on_boat_boat_exit"]
-[connection signal="boatExit" from="Boat" to="Sounds/WanderingBGM" method="_on_boat_boat_exit"]
+[connection signal="boatEnter" from="Boat" to="Sounds/BGM/Sailing1BGM" method="_on_boat_boat_enter"]
+[connection signal="boatEnter" from="Boat" to="Sounds/BGM/Sailing2BGM" method="_on_boat_boat_enter"]
+[connection signal="boatEnter" from="Boat" to="Sounds/BGM/IslandBGM" method="_on_boat_boat_enter"]
+[connection signal="boatEnter" from="Boat" to="Sounds/BGM/CreepingTreeBGM" method="_on_boat_boat_enter"]
+[connection signal="boatEnter" from="Boat" to="Sounds/BGM/DesertBGM" method="_on_boat_boat_enter"]
+[connection signal="boatEnter" from="Boat" to="Sounds/BGM/FarIsleBGM" method="_on_boat_boat_enter"]
+[connection signal="boatEnter" from="Boat" to="Sounds/BGM/WanderingBGM" method="_on_boat_boat_enter"]
+[connection signal="boatExit" from="Boat" to="Sounds/BGM/Sailing1BGM" method="_on_boat_boat_exit"]
+[connection signal="boatExit" from="Boat" to="Sounds/BGM/Sailing2BGM" method="_on_boat_boat_exit"]
+[connection signal="boatExit" from="Boat" to="Sounds/BGM/IslandBGM" method="_on_boat_boat_exit"]
+[connection signal="boatExit" from="Boat" to="Sounds/BGM/CreepingTreeBGM" method="_on_boat_boat_exit"]
+[connection signal="boatExit" from="Boat" to="Sounds/BGM/DesertBGM" method="_on_boat_boat_exit"]
+[connection signal="boatExit" from="Boat" to="Sounds/BGM/FarIsleBGM" method="_on_boat_boat_exit"]
+[connection signal="boatExit" from="Boat" to="Sounds/BGM/WanderingBGM" method="_on_boat_boat_exit"]
 [connection signal="animation_looped" from="Boat/Camera2D/Wind" to="Boat/Camera2D/Wind" method="_on_animation_looped"]
 [connection signal="animation_looped" from="Boat/Camera2D/Wind2" to="Boat/Camera2D/Wind2" method="_on_animation_looped"]
 [connection signal="animation_looped" from="Boat/Camera2D/Wind3" to="Boat/Camera2D/Wind3" method="_on_animation_looped"]
@@ -10152,14 +10209,14 @@ stream = ExtResource("88_4himb")
 [connection signal="body_exited" from="InitialIsland/Guy/Area2D2" to="InitialIsland/Guy" method="_on_area_2d_2_body_exited"]
 [connection signal="body_entered" from="InitialIsland/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="InitialIsland/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
-[connection signal="itemFound" from="InitialIsland/TestDig" to="Sounds/ItemFind" method="_on_test_dig_item_found"]
-[connection signal="itemFound" from="CreepingTreesIsle/Crow" to="Sounds/ItemFind" method="_on_crow_item_found"]
+[connection signal="itemFound" from="InitialIsland/TestDig" to="Sounds/SFX/ItemFound" method="_on_test_dig_item_found"]
+[connection signal="itemFound" from="CreepingTreesIsle/Crow" to="Sounds/SFX/ItemFound" method="_on_crow_item_found"]
 [connection signal="body_entered" from="CreepingTreesIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="CreepingTreesIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
-[connection signal="itemFound" from="CreepingTreesIsle/SailDig" to="Sounds/ItemFind" method="_on_sail_dig_item_found"]
+[connection signal="itemFound" from="CreepingTreesIsle/SailDig" to="Sounds/SFX/ItemFound" method="_on_sail_dig_item_found"]
 [connection signal="body_entered" from="BurialIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="BurialIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
-[connection signal="itemFound" from="BurialIsle/ShinyDig" to="Sounds/ItemFind" method="_on_shiny_dig_item_found"]
+[connection signal="itemFound" from="BurialIsle/ShinyDig" to="Sounds/SFX/ItemFound" method="_on_shiny_dig_item_found"]
 [connection signal="body_entered" from="Lagoon/LagoonIsle/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="Lagoon/LagoonIsle/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
 [connection signal="body_entered" from="Lagoon/LagoonIsle2/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
@@ -10173,14 +10230,14 @@ stream = ExtResource("88_4himb")
 [connection signal="body_exited" from="Smallrock/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
 [connection signal="body_entered" from="DesertIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="DesertIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
-[connection signal="itemFound" from="DesertIsle/DesertSwitchDig" to="Sounds/ItemFind" method="_on_shiny_dig_item_found"]
-[connection signal="itemFound" from="WanderingIsle/Path2D/PathFollow2D/WanderingIsle/WanderingDig" to="Sounds/ItemFind" method="_on_shiny_dig_item_found"]
+[connection signal="itemFound" from="DesertIsle/DesertSwitchDig" to="Sounds/SFX/ItemFound" method="_on_shiny_dig_item_found"]
+[connection signal="itemFound" from="WanderingIsle/Path2D/PathFollow2D/WanderingIsle/WanderingDig" to="Sounds/SFX/ItemFound" method="_on_shiny_dig_item_found"]
 [connection signal="body_entered" from="WanderingIsle/Path2D/PathFollow2D/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="WanderingIsle/Path2D/PathFollow2D/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
-[connection signal="itemFound" from="FarIsle/Area2D" to="Sounds/ItemFind" method="_on_area_2d_item_found"]
+[connection signal="itemFound" from="FarIsle/Area2D" to="Sounds/SFX/ItemFound" method="_on_area_2d_item_found"]
 [connection signal="body_entered" from="FarIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="FarIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
-[connection signal="itemFound" from="FarIsle/JewelDig" to="Sounds/ItemFind" method="_on_jewel_dig_item_found"]
+[connection signal="itemFound" from="FarIsle/JewelDig" to="Sounds/SFX/ItemFound" method="_on_jewel_dig_item_found"]
 [connection signal="body_entered" from="DipperIsle/DipperIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_entered"]
 [connection signal="body_exited" from="DipperIsle/DipperIsle/BoatStuff/DeBoat" to="Boat" method="_on_de_boat_body_exited"]
-[connection signal="krakenTalk" from="Ocean/SquidLarge/SquidArea" to="Sounds/Desert" method="_on_squid_area_kraken_talk"]
+[connection signal="krakenTalk" from="Ocean/SquidLarge/SquidArea" to="Sounds/BGM/DesertBGM" method="_on_squid_area_kraken_talk"]

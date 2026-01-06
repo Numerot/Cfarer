@@ -13,3 +13,5 @@ func _physics_process(float)->void:
 	playerFound = false
 	if Engine.get_physics_frames() % 300 == 0:
 		print("     on Wandering Isle:     "+str(playerHere))
+	if playerHere == true and %Player.boatMode == false:
+		%Sounds.playBGM("WanderingBGM")

@@ -73,6 +73,12 @@ func _physics_process(_delta):
 		get_node("/root/Node2D/Boat/Camera2D/TimeLabel").visible = true
 		get_node("/root/Node2D/Player/PlayerCollision").disabled = true
 		boatEnter.emit()
+		if windSpeed < 3:
+			get_node("/root/Node2D/Sounds").playBGM("SailingStillBGM")
+		elif windSpeed < 9:
+			get_node("/root/Node2D/Sounds").playBGM("Sailing2BGM")
+		if windSpeed >= 9:
+			get_node("/root/Node2D/Sounds").playBGM("Sailing1BGM")
 
 	elif Input.is_action_just_pressed("interact") and player.boatMode == true and canDeBoat == true:
 		var playerAnim = get_node("../Player/AnimatedSprite2D2")

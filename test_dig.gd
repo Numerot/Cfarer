@@ -12,6 +12,7 @@ func _on_menu_dig() -> void:
 			if found == false:
 				#player.inventory.append("Sword")
 				dialogueBox.dialogue("Found NOTHING AT ALL! Wow! What a waste of time! I'm going to include plenty of text here to test if text justification actually works! Amazing!")
-				itemFound.emit()
+				%Sounds.playSFX("ItemFound")
+				#itemFound.emit()
 				#found = true
 				print(dialogueBox.dialogueQueue)

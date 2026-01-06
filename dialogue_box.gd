@@ -17,10 +17,10 @@ func dialogue(dialogue):
 	$Panel/Label.text = dialogueQueue[0]
 	if dialogueQueue.size() == 1:
 		dialogueQueue.pop_front()
-
-func _physics_process(delta: float) -> void:
-	if player.dialogueMode == true:
-		if Input.is_action_just_pressed("interact"):
+		
+func _unhandled_input(event) -> void:
+	if event.is_action_pressed("interact"):
+		if player.dialogueMode == true:
 			print(dialogueQueue)
 			if dialogueQueue.size() == 0:
 				player.dialogueMode = false
@@ -36,3 +36,22 @@ func _physics_process(delta: float) -> void:
 			elif dialogueQueue.size() >= 1:
 				$Panel/Label.text = dialogueQueue[0]
 				dialogueQueue.pop_front()
+
+#func _physics_process(delta: float) -> void:
+	#if player.dialogueMode == true:
+		#if Input.is_action_just_pressed("interact"):
+			#print(dialogueQueue)
+			#if dialogueQueue.size() == 0:
+				#player.dialogueMode = false
+				#visible = false
+			#elif dialogueQueue.size() == 1:
+				#$Panel/Label.text = dialogueQueue[0]
+				#if dialogueQueue[0] == "Got FRIENDSHIP OF BIRDS!":
+					#player.inventory.append("Friendship of Birds")
+					#get_node("/root/Node2D/CreepingTreesIsle/Crow").itemFound.emit()
+				#dialogueQueue.pop_front()
+				##player.dialogueMode = false
+				##visible = false
+			#elif dialogueQueue.size() >= 1:
+				#$Panel/Label.text = dialogueQueue[0]
+				#dialogueQueue.pop_front()

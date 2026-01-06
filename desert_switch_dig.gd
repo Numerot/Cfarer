@@ -16,3 +16,9 @@ func _on_menu_dig() -> void:
 				get_node("/root/Node2D/DesertIsle/TileMapLayer").enabled = false
 				get_node("/root/Node2D/DesertIsle/TileMapLayer2").enabled = true
 				get_node("/root/Node2D/DesertIsle/TileMapLayer2").visible = true
+				get_node("/root/Node2D/DesertIsle/PondWander/PathFollow2D/PondFish").reparent(get_node("/root/Node2D/DesertIsle/ToCenter/PathFollow2D/"))
+				get_node("/root/Node2D/DesertIsle/ToCenter/PathFollow2D/PondFish").position.x = 0
+				get_node("/root/Node2D/DesertIsle/ToCenter/PathFollow2D/PondFish").position.y = 0
+				get_node("/root/Node2D/DesertIsle/ToCenter/PathFollow2D/PondFish").rotation = 0
+				get_node("/root/Node2D/DesertIsle/ToCenter/PathFollow2D/").started = true
+				

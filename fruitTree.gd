@@ -12,5 +12,6 @@ func _physics_process(delta: float) -> void:
 				if found == false:
 					player.inventory.append("Fruit")
 					dialogueBox.dialogue("Got FRUIT!")
-					itemFound.emit()
+					#itemFound.emit()
+					%Sounds.playSFX("ItemFound")
 					found = true

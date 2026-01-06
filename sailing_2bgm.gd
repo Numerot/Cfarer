@@ -1,11 +1,10 @@
 extends AudioStreamPlayer
-#
+
 #func _on_boat_boat_enter() -> void:
 	#play(0.0)
 	#volume_db = -200
-	#print("Now playing 'Sailing'.")
-#
-#
+	#print("Now playing 'Sailing2'.")
+
 #func _physics_process(delta: float) -> void:
 	#if get_node("/root/Node2D/Player").boatMode == true:
 		#volume_db = -5+1.5*get_node("/root/Node2D/Boat").windSpeed
@@ -13,8 +12,12 @@ extends AudioStreamPlayer
 			#volume_db = 0
 	#if get_node("/root/Node2D/Player").boatMode == false:
 		#volume_db -= 0.3
-#
-##func _on_boat_boat_exit() -> void:
-	##stop()
-	##print("Stop sailing music")
-	##volume_db = -50
+
+#func _on_boat_boat_exit() -> void:
+	#stop()
+	#print("Stop sailing music")
+	#volume_db = -50
+
+
+func _on_boat_boat_exit() -> void:
+	pass # Replace with function body.

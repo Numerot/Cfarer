@@ -11,6 +11,7 @@ func _on_menu_dig() -> void:
 			if found == false:
 				player.inventory.append("Something Shiny")
 				dialogueBox.dialogue("Found SOMETHING SHINY!")
-				itemFound.emit()
+				#itemFound.emit()
+				%Sounds.playSFX("ItemFound")
 				found = true
 				print(dialogueBox.dialogueQueue)

@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-var speed = 1.2
+var speed = 1.5
 var storedPosition
 @onready var player = get_node("/root/Node2D/Player")
 
