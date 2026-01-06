@@ -9,6 +9,8 @@ var subMenu = "main"
 var inRangeOfDig = false
 signal dig
 signal dredge
+signal seafoam
+signal farsight
 
 #func dig():
 	#player.dialogueMode = true
@@ -116,6 +118,13 @@ func _physics_process(delta):
 				if player.inventory[menuPointer] == "Sail":
 					sailToggle()
 					#dialogueBox.dialogue("Equipped sail!")
+					quitMenu()
+				if player.inventory[menuPointer] == "Seafoam jewel":
+					dialogueBox.dialogue("You take the jewel out.")
+					seafoam.emit()
+					quitMenu()
+				if player.inventory[menuPointer] == "Farsight":
+					farsight.emit()
 					quitMenu()
 				if player.inventory[menuPointer] == "Anchor":
 					if player.boatMode == true:

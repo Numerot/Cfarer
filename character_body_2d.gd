@@ -9,10 +9,11 @@ extends CharacterBody2D
 @export var inventory = ["Anchor", "Spade", "Dredge"]
 var facing = "down"
 signal menuStart
+var defaultZoom = 1.5
 
 func _ready():
-	$Camera2D.zoom.x = get_node("/root/Node2D").defaultPlayerCamZoom
-	$Camera2D.zoom.y = get_node("/root/Node2D").defaultPlayerCamZoom
+	$Camera2D.zoom.x = defaultZoom
+	$Camera2D.zoom.y = defaultZoom
 
 func _physics_process(_delta):
 	#if boatMode == true:

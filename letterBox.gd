@@ -1,8 +1,7 @@
 extends Panel
-
+#
 #func _ready() -> void:
-	#position.x = get_viewport().size
-	#position.y = get_viewport().size
+	#global_position.y = get_viewport().position.y
 
 func _physics_process(delta: float) -> void:
 	if get_node("/root/Node2D/Player").dialogueMode == true:

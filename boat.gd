@@ -19,6 +19,11 @@ signal boatExit
 var anchored = false
 var sailUp = false
 var windMultiplier = 1
+var farsight = false
+var farsightZoom = 0.9
+var defaultZoom = 1.5
+var debugZoom = 0.2
+var debug = false
 
 func _on_ready():
 	var player = get_node("/root/Node2D/Player")
@@ -33,6 +38,17 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		player_in_range_boat = false
 
 func _physics_process(_delta):	
+	if farsight == true:
+		$Camera2D.zoom.x = farsightZoom
+		$Camera2D.zoom.y = farsightZoom
+	elif debug == true:
+		$Camera2D.zoom.x = debugZoom
+		$Camera2D.zoom.y = debugZoom
+	else:
+		$Camera2D.zoom.x = defaultZoom
+		$Camera2D.zoom.y = defaultZoom
+	
+		
 	var player = get_node("../Player")
 	if Input.is_action_just_pressed("interact") and player.boatMode == false and player_in_range_boat == true:
 		var playerAnim = get_node("../Player/AnimatedSprite2D2")
@@ -140,3 +156,6 @@ func _on_de_boat_body_entered(body: Node2D) -> void:
 func _on_de_boat_body_exited(body: Node2D) -> void:
 	if body.name == "Boat":
 		canDeBoat = false
+
+func _on_menu_farsight() -> void:
+	farsight = not farsight

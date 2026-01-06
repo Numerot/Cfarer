@@ -5,13 +5,12 @@ extends Area2D
 var found = false
 signal itemFound
 
-
 func _on_menu_dig() -> void:
 	for body in get_overlapping_bodies():
 		if body.name == "Player":
 			if found == false:
-				#player.inventory.append("Sword")
-				dialogueBox.dialogue("Found NOTHING AT ALL! Wow! What a waste of time! I'm going to include plenty of text here to test if text justification actually works! Amazing!")
+				player.inventory.append("Farsight")
+				dialogueBox.dialogue("Found FARSIGHT!")
 				itemFound.emit()
-				#found = true
-				print(dialogueBox.dialogueQueue)
+				found = true
+				

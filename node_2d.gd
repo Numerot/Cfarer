@@ -14,31 +14,35 @@ var defaultBoatCamZoom = 1.5
 
 func _physics_process(delta: float):
 	if Input.is_action_just_pressed("dragOff"):
-		if $Boat.drag != 0:
-			$Boat.drag = 0
-			$Boat.speed = 75
-		else:
-			$Boat.drag = 0.0001
-			$Boat.speed = $Boat.boatSpeed
-		if $Player.maxSpeed < 800:
-			$Player.maxSpeed = 800
-		else:
-			$Player.maxSpeed = 80	
+		if $Player.boatMode == true:
+			if $Boat.drag != 0:
+				$Boat.drag = 0
+				$Boat.speed = 60
+			else:
+				$Boat.drag = 0.0001
+				$Boat.speed = $Boat.boatSpeed
+		if $Player.boatMode == false:
+			if $Player.maxSpeed < 800:
+				$Player.maxSpeed = 800
+			else:
+				$Player.maxSpeed = 80	
 	#if Input.is_action_just_pressed("collisionToggle"):
 		#$Player/PlayerCollision.disabled = not $Player/PlayerCollision.enabled
 		#$Boat/CollisionShape2D.disabled = not $Boat/CollisionShape2D.enabled
 	if Input.is_action_just_pressed("zoomOut") and zoomOut == false:
 		$Player/Camera2D.zoom.x = 0.30
 		$Player/Camera2D.zoom.y = 0.30
-		$Boat/Camera2D.zoom.x = 0.15
-		$Boat/Camera2D.zoom.y = 0.15
+		#$Boat/Camera2D.zoom.x = 0.15
+		#$Boat/Camera2D.zoom.y = 0.15
+		$Boat.debug = true
 		zoomOut = true
 	elif Input.is_action_just_pressed("zoomOut") and zoomOut == true:
 		$Player/Camera2D.zoom.x = defaultPlayerCamZoom
 		$Player/Camera2D.zoom.y = defaultPlayerCamZoom
-		$Boat/Camera2D.zoom.x = defaultBoatCamZoom
-		$Boat/Camera2D.zoom.y = defaultBoatCamZoom
+		#$Boat/Camera2D.zoom.x = defaultBoatCamZoom
+		#$Boat/Camera2D.zoom.y = defaultBoatCamZoom
 		zoomOut = false
+		$Boat.debug = false
 
 	time += 1
 	if time >= hourLength:

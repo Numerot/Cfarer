@@ -23,3 +23,10 @@ func _physics_process(delta: float) -> void:
 func _on_boat_boat_enter() -> void:
 	print("boat entered heard")
 	stop()
+
+func _on_squid_area_kraken_talk() -> void:
+	print("KrakenTalk heard.")
+	get_node("/root/Node2D/Sounds/SailingMusic").stop()
+	volume_db = 0
+	play(0.0)
+	print("Now playing 'Desert'.")

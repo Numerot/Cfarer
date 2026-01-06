@@ -4,8 +4,7 @@ extends CanvasLayer
 var dialogueQueue = []
 
 func _ready() -> void:
-	$Panel.position.x = get_viewport().size.x/2-$Panel.size.x/2
-	$Panel.position.y = get_viewport().size.y/3*2-$Panel.size.y/2
+	$Panel.position.y += get_viewport().size.y/5
 
 func dialogue(dialogue):
 	visible = true
