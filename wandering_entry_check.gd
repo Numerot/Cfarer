@@ -15,3 +15,6 @@ func _physics_process(float)->void:
 		print("     on Wandering Isle:     "+str(playerHere))
 	if playerHere == true and %Player.boatMode == false:
 		%Sounds.playBGM("WanderingBGM")
+
+	if playerHere == true and %Player.boatMode == false:
+		%Sounds.playBGM("WanderingBGM")

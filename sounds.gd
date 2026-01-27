@@ -12,14 +12,20 @@ func _ready() -> void:
 
 func playBGM(newMusic):
 	if nowPlaying == null:
-		nowPlaying = get_node("/root/Node2D/Sounds/BGM/Sailing1BGM")
-	if nowPlaying.name != newMusic:
 		for music in musicArray:
 			if music.name == newMusic:
 				music.play()
 				music.volume_db = 0
 				print("Now playing: " + str(music))
 				nowPlaying = music
+	else:
+		if nowPlaying.name != newMusic:
+			for music in musicArray:
+				if music.name == newMusic:
+					music.play()
+					music.volume_db = 0
+					print("Now playing: " + str(music))
+					nowPlaying = music
 				
 func playSFX(soundToPlay):
 	for sfx in sfxArray:

@@ -9,13 +9,17 @@ extends CharacterBody2D
 @export var inventory = ["Anchor", "Spade", "Dredge"]
 var facing = "down"
 signal menuStart
-var defaultZoom = 1.5
+var defaultZoom = 2.6
+var positionStore
 
 func _ready():
 	$Camera2D.zoom.x = defaultZoom
 	$Camera2D.zoom.y = defaultZoom
+	
 
 func _physics_process(_delta):
+	
+
 	#if boatMode == true:
 		#$Sprite2D.visible = false
 	#if boatMode == false:
@@ -74,6 +78,9 @@ func _physics_process(_delta):
 		velocity.y = -maxSpeed
 	
 	move_and_slide()
+
+
+	
 	if velocity.x > 0:
 		velocity.x -= 1
 	if velocity.x < 0:

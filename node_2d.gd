@@ -9,8 +9,9 @@ signal nightfall
 signal sunrise
 var hourLength = 720
 var dayLength = 12
-var defaultPlayerCamZoom = 2
+#var defaultPlayerCamZoom = 2
 var defaultBoatCamZoom = 1.5
+var birbFriend = false
 
 func _physics_process(delta: float):
 	if Input.is_action_just_pressed("dragOff"):
@@ -22,10 +23,10 @@ func _physics_process(delta: float):
 				$Boat.drag = 0.0001
 				$Boat.speed = $Boat.boatSpeed
 		if $Player.boatMode == false:
-			if $Player.maxSpeed < 800:
-				$Player.maxSpeed = 800
+			if $Player.maxSpeed < 1000:
+				$Player.maxSpeed = 1000
 			else:
-				$Player.maxSpeed = 80	
+				$Player.maxSpeed = 1000
 	#if Input.is_action_just_pressed("collisionToggle"):
 		#$Player/PlayerCollision.disabled = not $Player/PlayerCollision.enabled
 		#$Boat/CollisionShape2D.disabled = not $Boat/CollisionShape2D.enabled
@@ -37,8 +38,8 @@ func _physics_process(delta: float):
 		$Boat.debug = true
 		zoomOut = true
 	elif Input.is_action_just_pressed("zoomOut") and zoomOut == true:
-		$Player/Camera2D.zoom.x = defaultPlayerCamZoom
-		$Player/Camera2D.zoom.y = defaultPlayerCamZoom
+		$Player/Camera2D.zoom.x = $Player.defaultZoom
+		$Player/Camera2D.zoom.y = $Player.defaultZoom
 		#$Boat/Camera2D.zoom.x = defaultBoatCamZoom
 		#$Boat/Camera2D.zoom.y = defaultBoatCamZoom
 		zoomOut = false

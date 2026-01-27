@@ -21,7 +21,7 @@ var sailUp = false
 var windMultiplier = 1
 var farsight = false
 var farsightZoom = 0.9
-var defaultZoom = 1.5
+var defaultZoom = 1.35
 var debugZoom = 0.2
 var debug = false
 
@@ -148,8 +148,8 @@ func _physics_process(_delta):
 	
 	if anchored == false:
 		move_and_slide()
-	if Engine.get_physics_frames() % 60 == 0:
-		print(str(int(velocity.x))+" "+str(int(velocity.y)))
+	if Engine.get_physics_frames() % 60 == 0 and %Player.boatMode == true:
+		print("Boat movement: " + str(int(velocity.x))+" "+str(int(velocity.y)))
 	if position == positionStore:
 		velocity.x = 0
 		velocity.y = 0
